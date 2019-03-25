@@ -11,6 +11,9 @@
 #        # (pip install pandoc)
 #        # bash pandoc.sh
 #
+#        Note, the bibliography style file taken and modified slightly from
+#        https://github.com/citation-style-language/styles
+#
 #    4) Still have to manually turn on as an ordered list and set the 
 #       Affiliation publication counter to continue with the earlier list
 # 
