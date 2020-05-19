@@ -20,8 +20,18 @@
 #    5) Also, the left column of the summary stats needs to be manually set to 
 #       right-justified.
 
+# Impact factor
+# https://jcr.clarivate.com/JCRJournalHomeAction.action?pg=JRNLHOME&categoryName=ASTRONOMY%20%26%20ASTROPHYSICS&categories=BU
+
+# Open Access:
+#    Run ./get_doi.py | pbcopy and paste query into 
+#    https://apps.webofknowledge.com/.
+
+
+
 ### Full author query for new ADS:
 #
+# # query="""
 #     ((author:"capak, peter" OR
 #       author:"oesch, p" OR
 #       author:"whitaker, k" OR
@@ -31,14 +41,14 @@
 #       author:"caputi, k" OR
 #      (author:"walter, f" AND aff:"Heidelberg") OR
 #       author:"colina, l"
-#      ) OR 
+#      ) NOT 
 #      (author:"brammer, g" OR 
 #       author:"toft, s" OR 
 #       author:"steinhardt, charles" OR 
 #       author:"magdis, georgios" OR
 #       author:"greve, thomas" OR
 #       author:"fynbo, johan" OR
-#       author:"watson, d" OR
+#       author:"watson, darach" OR
 #       author:"jakobsen, peter" OR
 #       author:"nørgaard-nielsen" OR
 #       author:"hornstrup, allan" OR
@@ -55,7 +65,105 @@
 #       author:"killi, m" OR
 #      (author:"weaver, john" AND (aff:"Andrews" OR aff:"Bohr"))
 #       ))
-#       pubdate:[2018-03-31 TO 2018-12-31]
+#       pubdate:[2018-12-31 TO 2019-12-31]
+#       
+#       # Recent arrivals
+#       ((
+#         author:"fujimoto, s"
+#        ) NOT 
+#        (author:"brammer, g" OR 
+#         author:"toft, s" OR 
+#         author:"steinhardt, charles" OR 
+#         author:"magdis, georgios" OR
+#         author:"greve, thomas" OR
+#         author:"fynbo, johan" OR
+#         author:"watson, darach" OR
+#         author:"jakobsen, peter" OR
+#         author:"nørgaard-nielsen" OR
+#         author:"hornstrup, allan" OR
+#         author:"valentino, f" OR
+#         author:"ceverino, d" OR
+#        (author:"nakajima, kimihiko" AND (aff:"European" OR aff:"Observatory of Japan")) OR
+#         author:"bonaventura, n" OR
+#         author:"milvang-jensen, b" OR
+#         author:"selsing, j" OR
+#         (author:"stockmann, m" AND aff:"Bohr") OR
+#         (author:"gomez-guijarro, c" AND aff:"Bohr") OR
+#         author:"cortzen, i" OR 
+#         author:"kokorev, v" OR
+#         author:"killi, m" OR
+#        (author:"weaver, john" AND (aff:"Andrews" OR aff:"Bohr"))
+#         ))
+#         pubdate:[2019-10-31 TO 2019-12-31]
+# 
+#         # Recent arrivals
+#         ((
+#           author:"davidzon, i"
+#          ) NOT 
+#          (author:"brammer, g" OR 
+#           author:"toft, s" OR 
+#           author:"steinhardt, charles" OR 
+#           author:"magdis, georgios" OR
+#           author:"greve, thomas" OR
+#           author:"fynbo, johan" OR
+#           author:"watson, darach" OR
+#           author:"jakobsen, peter" OR
+#           author:"nørgaard-nielsen" OR
+#           author:"hornstrup, allan" OR
+#           author:"valentino, f" OR
+#           author:"ceverino, d" OR
+#          (author:"nakajima, kimihiko" AND (aff:"European" OR aff:"Observatory of Japan")) OR
+#           author:"bonaventura, n" OR
+#           author:"milvang-jensen, b" OR
+#           author:"selsing, j" OR
+#           (author:"stockmann, m" AND aff:"Bohr") OR
+#           (author:"gomez-guijarro, c" AND aff:"Bohr") OR
+#           author:"cortzen, i" OR 
+#           author:"kokorev, v" OR
+#           author:"killi, m" OR
+#          (author:"weaver, john" AND (aff:"Andrews" OR aff:"Bohr"))
+#           ))
+#           pubdate:[2019-05-31 TO 2019-12-31]
+#        
+#        # Full query
+       # ((author:"capak, peter" OR
+       #   author:"oesch, p" OR
+       #   author:"whitaker, k" OR
+       #   author:"narayanan, d" OR
+       #   author:"finlator, k" OR
+       #   author:"lagos, c" OR
+       #   author:"caputi, k" OR
+       #  (author:"walter, f" AND aff:"Heidelberg") OR
+       #   author:"colina, l"
+       #  ) OR 
+       #  (author:"brammer, g" OR 
+       #   author:"toft, s" OR 
+       #   author:"steinhardt, charles" OR 
+       #   author:"magdis, georgios" OR
+       #   author:"greve, thomas" OR
+       #   author:"fynbo, johan" OR
+       #   author:"watson, darach" OR
+       #   author:"jakobsen, peter" OR
+       #   author:"nørgaard-nielsen" OR
+       #   author:"hornstrup, allan" OR
+       #   author:"valentino, f" OR
+       #   author:"ceverino, d" OR
+       #   author:"davidzon, i" OR
+       #   author:"fujimoto, s" OR         
+       #  (author:"nakajima, kimihiko" AND (aff:"European" OR aff:"Observatory of Japan" OR aff:"Bohr")) OR
+       #   author:"bonaventura, n" OR
+       #   author:"milvang-jensen, b" OR
+       #   author:"selsing, j" OR
+       #   (author:"stockmann, m" AND aff:"Bohr") OR
+       #   (author:"gomez-guijarro, c" AND aff:"Bohr") OR
+       #   author:"cortzen, i" OR 
+       #   author:"kokorev, v" OR
+       #   author:"killi, m" OR
+       #  (author:"weaver, john" AND (aff:"Andrews" OR aff:"Bohr"))
+       #   ))
+       #   pubdate:[2018-12-31 TO 2019-12-31]
+#        
+# """
 
 # Make Dawn authors BOLD, replace journal keywords and some special characters
 for root in cph affil; do
@@ -82,7 +190,7 @@ for root in cph affil; do
     perl -pi -e "s/\\\\&amp;/\\\&/g" ${bibfile}
     perl -pi -e "s/Nargaard/N{\\\\o}rgaard/" ${bibfile}
     
-    for name in Brammer Toft Steinhardt Magdis Greve Fynbo Watson Jakobsen "N{\\\\o}rgaard-Nielsen" Hornstrup Valentino Ceverino Nakajima Bonaventura Milvang-Jensen Selsing Stockmann G{\'o}mez-Guijarro Cortzen Kokorev Killi Weaver Capak Oesch Whitaker Narayanan Finlator Lagos Caputi Walter Colina; do
+    for name in Brammer Toft Steinhardt Magdis Greve Fynbo Watson Jakobsen "N{\\\\o}rgaard-Nielsen" Hornstrup Valentino Ceverino Nakajima Bonaventura Milvang-Jensen Selsing Stockmann G{\'o}mez-Guijarro Cortzen Kokorev Killi Weaver Capak Oesch Whitaker Narayanan Finlator Lagos Caputi Walter Colina Davidzon Fujimoto; do
         cp ${bibfile} tmp.bib
         sed "s/{${name}}/{\\\bf ${name}}/g" tmp.bib > ${bibfile}
     done
